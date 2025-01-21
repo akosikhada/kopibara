@@ -3,7 +3,7 @@
 KOPIBARA is a modern web-based coffee ordering system developed by the KPL Team as part of the IPT102 - Integrative Programming and Technologies 2 course. Built with ASP.NET Core 8.0, it offers a seamless experience for customers to browse and order a variety of coffee beverages, including both hot and iced options. KOPIBARA empowers customers with a secure and convenient payment gateway powered by Paymongo, ensuring a smooth and hassle-free checkout process. Additionally, the system leverages Entity Framework Core to streamline data access and manipulation, facilitating efficient order management and inventory control.
 
 <p align="center">
-  <img src="Kopibara/wwwroot/images/KOPIBARA.png" alt="KOPIBARA Logo" width="300"/>
+  <img src="./wwwroot/images/KOPIBARA.png" alt="KOPIBARA Logo" width="300"/>
 </p>
 
 ## Features
