@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = null;
+}
+
+@model Kopibara.Models.OrderList
+
+<div class="container text-center pt-5 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg" style="background-color: #FFEDDE; border-radius: 10px;">
+                <div class="card-body p-5">
+                    <img src="~/Images/THANK-YOU.png" alt="Thank You" class="img-fluid mb-4" style="width: 150px;">
+                    <h1 class="fw-bold" style="color: #a35429;">Thank You for Your Purchase!</h1>
+                    <p class="mt-3 fs-5" style="color: #6b4b31;">
+                        We appreciate your support at <strong>Kopibara</strong>. Your order is being processed and will be prepared shortly!
+                    </p>
+                    <p class="mt-3 fs-5" style="color: #6b4b31;">
+                        If you have any questions about your order, feel free to contact us. Have a great day!
+                    </p>
+                    <a href="@Url.Action("Home", "Home")" class="btn text-white fw-semibold mt-4" style="background-color: #a35429; padding: 10px 20px; border-radius: 5px;">
+                        Return to Homepage
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

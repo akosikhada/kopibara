@@ -1,0 +1,233 @@
+﻿@{
+    ViewBag.Title = null;
+}
+
+<style>
+    .card {
+        background-color: #56392d;
+        border: none;
+        padding: 20px;
+        color: #fff;
+    }
+
+    .btn-group .btn {
+        min-width: 90px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+    }
+
+    .btn-custom {
+        border-radius: 0;
+    }
+
+    .btn-group .btn-custom {
+        background-color: #56392d;
+        color: white;
+        flex: 1 2 auto;
+        margin: 5px;
+    }
+
+    .btn-group .btn-check:checked + .btn-custom {
+        background-color: #be7342;
+        color: white;
+    }
+
+    .btn-group .btn-custom:hover {
+        background-color: #e4bc84;
+        color: white;
+    }
+
+    .quantity-input {
+        width: 50px;
+        text-align: center;
+    }
+
+    .price {
+        font-weight: 700;
+        font-size: 15px;
+    }
+
+    .btn-custom:hover {
+        background-color: #e4bc84;
+    }
+
+    .btn-custom:active:focus {
+        background-color: #e4bc84;
+    }
+
+    .add-to-cart-btn {
+        background-color: #e4bc84;
+        border: none;
+        outline: none;
+    }
+
+    .btn {
+        color: #fff;
+    }
+
+    .quantity-selector input {
+        width: 50px;
+        text-align: center;
+        border: 1px solid #ccc;
+        margin: 0 5px;
+        font-size: 18px;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
+
+@model Kopibara.Models.Kopi_products
+
+<form asp-action="SubmitOrder" method="post">
+    <input type="hidden" name="ItemName" value="@Model.product_name" />
+    <input type="hidden" name="Price" value="@Model.price" />
+    <input type="hidden" name="ProductImage" value="@Model.product_image" />
+
+    <div class="container" style="max-width: 600px; margin-top: 100px; margin-bottom: 170px;">
+        <div class="card">
+            <div class="row align-items-center mb-3">
+                <div class="col-12 d-sm-none text-center mb-3">
+                    <img src="@Model.product_image" alt="@Model.product_name" class="w-50 rounded-circle" />
+                </div>
+                <div class="col-4 col-sm-3 d-none d-sm-block">
+                    <img src="@Model.product_image" alt="@Model.product_name" class="w-100 mb-1 mt-1 rounded-circle mb-sm-0" />
+                </div>
+                <div class="col-12 col-sm-9 text-center text-sm-start">
+                    <h4 class="text-white">
+                        @Model.product_name
+                    </h4>
+                    <p class="m-0 text-white-50">
+                        @Model.description
+                    </p>
+                </div>
+            </div>
+            <hr />
+            <h4 class="text-center">Choose Size</h4>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="btn-group d-flex justify-content-center flex-wrap" role="group">
+                            <input type="radio" class="btn-check" id="size16" name="Size" value="16 oz" autocomplete="off" checked />
+                            <label class="btn btn-custom fw-bold" for="size16">16 oz</label>
+
+                            <input type="radio" class="btn-check" id="size22" name="Size" value="22 oz" autocomplete="off" />
+                            <label class="btn btn-custom fw-bold" for="size22">22 oz</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="mt-3 text-center">Brew Style</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="btn-group d-flex justify-content-center flex-wrap" role="group">
+                            <input type="radio" class="btn-check" id="hotBrew" name="BrewStyle" value="HOT" autocomplete="off" checked />
+                            <label class="btn btn-custom fw-bold" for="hotBrew">HOT</label>
+
+                            <input type="radio" class="btn-check" id="coldBrew" name="BrewStyle" value="ICED" autocomplete="off" />
+                            <label class="btn btn-custom fw-bold" for="coldBrew">ICED</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="mt-3 text-center">Sugar Level</h4>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="btn-group d-flex justify-content-center flex-wrap col-6 col-sm-3" role="group">
+                                    <input type="radio" class="btn-check" id="sugar25" name="SugarLevel" value="25%" autocomplete="off" />
+                                    <label class="btn btn-custom fw-bold" for="sugar25">25%</label>
+                                </div>
+                                <div class="btn-group d-flex justify-content-center flex-wrap col-6 col-sm-3">
+                                    <input type="radio" class="btn-check" id="sugar50" name="SugarLevel" value="50%" autocomplete="off" />
+                                    <label class="btn btn-custom fw-bold" for="sugar50">50%</label>
+                                </div>
+                                <div class="btn-group d-flex justify-content-center flex-wrap col-6 col-sm-3">
+                                    <input type="radio" class="btn-check" id="sugar75" name="SugarLevel" value="75%" autocomplete="off" />
+                                    <label class="btn btn-custom fw-bold" for="sugar75">75%</label>
+                                </div>
+                                <div class="btn-group d-flex justify-content-center flex-wrap col-6 col-sm-3">
+                                    <input type="radio" class="btn-check" id="sugar100" name="SugarLevel" value="100%" checked autocomplete="off" />
+                                    <label class="btn btn-custom fw-bold" for="sugar100">100%</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row m-4 pt-4">
+                        <div class="col-12 col-md-6 d-flex align-items-center justify-content-center mb-3 mb-md-0">
+                            <div class="quantity-selector d-flex align-items-center">
+                                <span class="me-2">Quantity</span>
+                                <button type="button" id="decrease" class="btn btn-custom fw-bold">−</button>
+                                <input type="number" id="quantity" name="Quantity" value="1" min="1" max="25" class="form-control mx-2 fw-bold text-center" style="width: 50px;" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2);">
+                                <button type="button" id="increase" class="btn btn-custom fw-bold">+</button>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 d-flex justify-content-center">
+                            <button class="add-to-cart-btn btn btn-custom d-flex flex-column flex-sm-row justify-content-center align-items-center text-center">
+                                <span class="material-symbols-outlined me-0 me-sm-2 text-dark mb-2 mb-sm-0">
+                                    shopping_cart
+                                </span>
+                                <small class="me-0 me-sm-2 text-dark mb-2 mb-sm-0 fw-semibold">Add to Cart</small>
+                                <small class="price text-dark" id="totalPrice">₱@Model.price</small>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    const decreaseBtn = document.getElementById('decrease');
+    const increaseBtn = document.getElementById('increase');
+    const quantityInput = document.getElementById('quantity');
+    const totalPriceElement = document.getElementById('totalPrice');
+    const pricePerUnit = @Model.price;
+
+    function updateTotalCost() {
+        const quantity = parseInt(quantityInput.value) || 1;
+        const totalCost = quantity * pricePerUnit;
+        totalPriceElement.textContent = `₱${totalCost.toFixed(2)}`;
+    }
+
+    decreaseBtn.addEventListener('click', () => {
+        let currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+            updateTotalCost();
+        }
+    });
+
+    increaseBtn.addEventListener('click', () => {
+        let currentValue = parseInt(quantityInput.value);
+        if (currentValue < 25) { 
+            quantityInput.value = currentValue + 1;
+            updateTotalCost();
+        }
+    });
+
+    quantityInput.addEventListener('input', () => {
+        let currentValue = parseInt(quantityInput.value) || 1;
+        if (currentValue > 25) { 
+            quantityInput.value = 25;
+        } else if (currentValue < 1) {
+            quantityInput.value = 1;
+        }
+        updateTotalCost();
+    });
+
+    updateTotalCost();
+</script>

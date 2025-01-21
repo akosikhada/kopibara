@@ -1,0 +1,290 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-width: 100%;
+    min-height: 100%;
+    color: white;
+    font-family: "Poppins", sans-serif;
+}
+
+.section-title {
+    position: relative;
+    padding: 115px 0 35px 0;
+    text-align: center;
+}
+
+.cart-container {
+    background-color: #4b322a;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 50px auto;
+    max-width: 90%;
+}
+
+.cart-table {
+    background-color: #d9a668;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+@media (min-width: 1025px) {
+    .h-custom {
+        height: 100vh !important;
+    }
+}
+
+.number-input input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.number-input input[type=number]::-webkit-inner-spin-button,
+.number-input input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+.number-input button {
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0;
+    position: relative;
+}
+
+    .number-input button:before,
+    .number-input button:after {
+        display: inline-block;
+        position: absolute;
+        content: '';
+        height: 2px;
+        transform: translate(-50%, -50%);
+    }
+
+    .number-input button.plus:after {
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+.number-input input[type=number] {
+    text-align: center;
+}
+
+.number-input.number-input {
+    border: 1px solid #ced4da;
+    width: 10rem;
+    border-radius: .25rem;
+}
+
+    .number-input.number-input button {
+        width: 2.6rem;
+        height: .7rem;
+    }
+
+        .number-input.number-input button.minus {
+            padding-left: 10px;
+        }
+
+        .number-input.number-input button:before,
+        .number-input.number-input button:after {
+            width: .7rem;
+            background-color: #495057;
+        }
+
+    .number-input.number-input input[type=number] {
+        max-width: 4rem;
+        padding: .5rem;
+        border: 1px solid #ced4da;
+        border-width: 0 1px;
+        font-size: 1rem;
+        height: 2rem;
+        color: #495057;
+    }
+
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance: none) and (stroke-color:transparent) {
+        .number-input.def-number-input.safari_only button:before,
+        .number-input.def-number-input.safari_only button:after {
+            margin-top: -.3rem;
+        }
+    }
+}
+
+.shopping-cart .def-number-input.number-input {
+    border: none;
+}
+
+    .shopping-cart .def-number-input.number-input input[type=number] {
+        max-width: 2rem;
+        border: none;
+    }
+
+        .shopping-cart .def-number-input.number-input input[type=number].black-text,
+        .shopping-cart .def-number-input.number-input input.btn.btn-link[type=number],
+        .shopping-cart .def-number-input.number-input input.md-toast-close-button[type=number]:hover,
+        .shopping-cart .def-number-input.number-input input.md-toast-close-button[type=number]:focus {
+            color: #212529 !important;
+        }
+
+    .shopping-cart .def-number-input.number-input button {
+        width: 1rem;
+    }
+
+        .shopping-cart .def-number-input.number-input button:before,
+        .shopping-cart .def-number-input.number-input button:after {
+            width: .5rem;
+        }
+
+        .shopping-cart .def-number-input.number-input button.minus:before,
+        .shopping-cart .def-number-input.number-input button.minus:after {
+            background-color: #9e9e9e;
+        }
+
+        .shopping-cart .def-number-input.number-input button.plus:before,
+        .shopping-cart .def-number-input.number-input button.plus:after {
+            background-color: #4285f4;
+        }
+
+.edit-link {
+    color: #000000;
+    text-decoration: none;
+}
+
+    .edit-link:hover {
+        text-decoration: underline;
+    }
+
+.container-custom,
+.order-container {
+    background-color: #e0b07f;
+    border-radius: 10px;
+    padding: 50px;
+    margin: 30px 0;
+    color: black;
+}
+
+.box-area {
+    width: 930px;
+}
+
+.right-box {
+    padding: 40px 30px 40px 40px;
+}
+
+::placeholder {
+    font-size: 16px;
+}
+
+.rounded-4 {
+    border-radius: 20px;
+}
+
+.rounded-5 {
+    border-radius: 30px;
+}
+
+.footer {
+    background-color: #d2c1b0;
+    color: black;
+    padding: 20px 0;
+}
+
+    .footer a {
+        color: #000;
+        text-decoration: none;
+    }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+.hero-image {
+    margin-left: 200px;
+}
+
+.footer p {
+    font-size: 20px;
+}
+
+.footer h1 {
+    font-size: 50px;
+}
+
+
+@media screen and (max-width: 768px) {
+    #sidebar {
+        width: 200px;
+    }
+
+    #content {
+        width: calc(100% - 60px);
+        left: 200px;
+    }
+
+        #content nav .nav-link {
+            display: none;
+        }
+}
+
+@media screen and (max-width: 576px) {
+    #content nav form .form-input input {
+        display: none;
+    }
+
+    #content nav form .form-input button {
+        width: auto;
+        height: auto;
+        background: transparent;
+        border-radius: none;
+        color: var(--dark);
+    }
+
+    #content nav form.show .form-input input {
+        display: block;
+        width: 100%;
+    }
+
+    #content nav form.show .form-input button {
+        width: 36px;
+        height: 100%;
+        border-radius: 0 36px 36px 0;
+        color: var(--light);
+        background: var(--red);
+    }
+
+    #content nav form.show ~ .notification,
+    #content nav form.show ~ .profile {
+        display: none;
+    }
+
+    #content main .box-info {
+        grid-template-columns: 1fr;
+    }
+
+    #content main .table-data .head {
+        min-width: 420px;
+    }
+
+    #content main .table-data .order table {
+        min-width: 420px;
+    }
+
+    #content main .table-data .todo .todo-list {
+        min-width: 420px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-margin {
+        margin-bottom: 15px;
+    }
+}

@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\CUP.png" />
+    <None Include="wwwroot\images\GOOGLE.png" />
+    <None Include="wwwroot\images\HOT-BLACK-COFFEE.jpg" />
+    <None Include="wwwroot\images\HOT-CAPPUCCINO.jpg" />
+    <None Include="wwwroot\images\HOT-ESPRESSO.jpg" />
+    <None Include="wwwroot\images\HOT-IRISH.jpg" />
+    <None Include="wwwroot\images\HOT-LATTE.jpg" />
+    <None Include="wwwroot\images\HOT-MACCHIATO.jpg" />
+    <None Include="wwwroot\images\HOT-MOCHA.jpg" />
+    <None Include="wwwroot\images\HOT-VIETNAMESE.jpg" />
+    <None Include="wwwroot\images\ICED-BLACK-COFFEE.jpg" />
+    <None Include="wwwroot\images\ICED-CAPPUCCINO.jpg" />
+    <None Include="wwwroot\images\ICED-ESPRESSO.jpg" />
+    <None Include="wwwroot\images\ICED-IRISH.jpg" />
+    <None Include="wwwroot\images\ICED-LATTE.jpg" />
+    <None Include="wwwroot\images\ICED-MACCHIATO.jpg" />
+    <None Include="wwwroot\images\ICED-MOCHA.jpg" />
+    <None Include="wwwroot\images\ICED-VIETNAMESE.jpg" />
+    <None Include="wwwroot\images\KOPIBARA.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="RestSharp" Version="112.1.0" />
+  </ItemGroup>
+
+</Project>

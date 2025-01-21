@@ -1,0 +1,213 @@
+﻿@{
+	ViewBag.Title = null;
+}
+<style>
+	.wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: #e4bc84;
+		border: 2px solid #000;
+		padding: 20px;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.nav-btn {
+		background-color: #7c4a28;
+		color: white;
+		border: none;
+		margin-right: 10px;
+		padding: 15px;
+	}
+
+	.nav-btn.active {
+		background-color: #a97a4f;
+	}
+
+	.nav-btn:hover {
+		background-color: #3d251b;
+	}
+
+	.image-placeholder,
+	.form-control,
+	.btn-custom {
+		background-color: #3d251b;
+		color: white;
+		border: none;
+		text-align: center;
+	}
+
+	.image-placeholder {
+		height: 400px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.images img {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: cover;
+		border-radius: 10px;
+		box-shadow: 10px 29px 75px 0px rgba(0, 0, 0, 0.68);
+	}
+	.btn-custom,
+	.btn-cancel {
+		background-color: #be7c42;
+		padding: 10px 20px;
+		color: #ffffff;
+		transition: color 0.3s, background-color 0.3s;
+		position: relative;
+		overflow: hidden;
+		cursor: pointer;
+	}
+
+	.btn-custom:hover,
+	.btn-cancel:hover {
+		background-color: #a86938;
+	}
+
+	.form-control {
+		padding: 15px;
+		font-size: 1.1em;
+		height: 110px;
+		border-radius: 10px;
+		margin-bottom: 15px;
+		color: #ffffff;
+	}
+
+	.form-control::placeholder {
+		color: #ffffff;
+	}
+
+	.nav-btn:focus,
+	.btn-custom:focus,
+	.btn-cancel:focus {
+		outline: none !important;
+		box-shadow: none !important;
+	}
+
+	#picture__input {
+		display: none;
+	}
+
+	.picture {
+		margin-top: 58px;
+		width: 100%;
+		aspect-ratio: 1.6 / 5;
+		background: #ddd;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #aaa;
+		cursor: pointer;
+		font-family: sans-serif;
+		transition: color 300ms ease-in-out, background 300ms ease-in-out;
+		outline: none;
+		overflow: hidden;
+		max-height: 450px;
+		border-radius: 8px;
+	}
+
+	.picture:hover {
+		color: #777;
+		background: #ccc;
+	}
+
+	.picture:active {
+		border-color: turquoise;
+		color: turquoise;
+		background: #eee;
+	}
+
+	.picture:focus {
+		color: #777;
+		background: #ccc;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	}
+
+	.picture__img {
+		max-width: 100%;
+		height: auto;
+	}
+</style>
+
+<!-- Center Wrapper -->
+<div class="wrapper">
+	<div class="container">
+		<div class="container">
+			<div class="d-flex flex-row gap-2 mb-3" style="width: max-content;">
+				<a href="@Url.Action("OrderList", "Admin")" class="btn text-white fs-5 fw-bold text-uppercase" style="background-color: #a35429;">ORDER LIST</a>
+				<a href="@Url.Action("ProductList", "Admin")" class="btn text-white fs-5 fw-bold text-uppercase" style="background-color: #a35429;">PRODUCT LIST</a>
+				<a href="@Url.Action("AddProduct", "Admin")" class="btn text-white fs-5 fw-bold text-uppercase" style="background-color: #a35429;">ADD PRODUCT</a>
+			</div>
+		</div>
+
+		<form asp-action="AddProduct" method="post" enctype="multipart/form-data">
+			<div class="row">
+				<!-- Image Section -->
+				<div class="col-md-6">
+					<label class="picture" for="picture__input" tabindex="0">
+						<span class="picture__image">Choose an Image</span>
+					</label>
+					<input type="file" name="product_image" id="picture__input" />
+				</div>
+
+				<!-- Form Section -->
+				<div class="col-md-6">
+					<div class="form-group">
+						<input type="text" name="product_name" class="form-control mb-3" placeholder="Name" required />
+						<textarea name="description" class="form-control mb-3" placeholder="Description" required></textarea>
+						<input type="number" name="price" class="form-control mb-3" placeholder="Price" required />
+
+						<!-- Dropdown for Category -->
+						<select name="category" class="form-control mb-3" required>
+							<option value="" disabled selected>Choose Category</option>
+							<option value="Hot">Hot</option>
+							<option value="Iced">Iced</option>
+						</select>
+					</div>
+
+					<!-- Centered Buttons -->
+					<div class="d-flex justify-content-center gap-2">
+						<button type="submit" class="btn btn-custom p-4 mr-2 w-50">Add</button>
+						<a href="@Url.Action("OrderList", "Admin")" class="btn btn-cancel p-4 w-50">Cancel</a>
+					</div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+</div>
+
+<script>
+	const inputFile = document.querySelector("#picture__input");
+	const pictureImage = document.querySelector(".picture__image");
+	const pictureImageTxt = "Choose an image";
+	pictureImage.innerHTML = pictureImageTxt;
+
+	inputFile.addEventListener("change", function (e) {
+		const inputTarget = e.target;
+		const file = inputTarget.files[0];
+
+		if (file) {
+			const reader = new FileReader();
+
+			reader.addEventListener("load", function (e) {
+				const readerTarget = e.target;
+
+				const img = document.createElement("img");
+				img.src = readerTarget.result;
+				img.classList.add("picture__img");
+
+				pictureImage.innerHTML = "";
+				pictureImage.appendChild(img);
+			});
+
+			reader.readAsDataURL(file);
+		} else {
+			pictureImage.innerHTML = pictureImageTxt;
+		}
+	});
+</script>

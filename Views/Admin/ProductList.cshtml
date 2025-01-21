@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Kopi_products>
+
+@{
+	ViewBag.Title = null;
+}
+
+<style>
+	.card {
+		background-color: #795948;
+		color: #fff;
+		border: none;
+		border-radius: 10px;
+		overflow: hidden;
+	}
+	.card img {
+		width: 100%;
+		height: 200px;
+		object-fit: cover;
+	}
+	.card-body {
+		background-color: #795948;
+		padding: 15px;
+	}
+
+	.btn-custom {
+		background-color: #be7c42;
+		padding: 10px 20px;
+		color: #ffffff;
+		transition: color 0.3s, background-color 0.3s;
+		position: relative;
+		overflow: hidden;
+		width: 150px;
+		margin-left: 20px;
+		margin-right: 20px;
+		cursor: pointer;
+	}
+
+	.btn-cancel {
+		background-color: red;
+		padding: 10px 20px;
+		color: #ffffff;
+		position: relative;
+		overflow: hidden;
+		width: 150px;
+		margin-left: 20px;
+		margin-right: 20px;
+		cursor: pointer;
+	}
+
+	.btn-custom:hover {
+		background-color: #a86938;
+	}
+
+	.btn-cancel:hover {
+		background-color: red;
+	}
+</style>
+
+<div class="container my-4">
+	<div class="container">
+		<div class="d-flex flex-row gap-2 mb-3" style="width: max-content;">
+			<a href="@Url.Action("OrderList", "Admin")" class="btn text-white fs-5 fw-bold text-uppercase" style="background-color: #a35429;">ORDER LIST</a>
+			<a href="@Url.Action("ProductList", "Admin")" class="btn text-white fs-5 fw-bold text-uppercase" style="background-color: #a35429;">PRODUCT LIST</a>
+			<a href="@Url.Action("AddProduct", "Admin")" class="btn text-white fs-5 fw-bold text-uppercase" style="background-color: #a35429;">ADD PRODUCT</a>
+		</div>
+	</div>
+
+	<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+		@foreach (var product in Model)
+		{
+			<div class="col">
+				<div class="card">
+					<img src="@(product.product_image)" alt="@product.product_name" />
+					<div class="card-body text-center">
+						<h5 class="card-title">@product.product_name</h5>
+						<p class="card-text">
+							@product.description
+						</p>
+						<div class="d-flex justify-content-around mt-3">
+							<a href="@Url.Action("EditProduct", "Admin", new { id = product.Id })" class="btn btn-custom">
+								Edit
+							</a>
+							<button class="btn btn-cancel" onclick="confirmDelete('@product.product_name')">Delete</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+
+
+
+<script>
+	function confirmDelete(productName) {
+		if (confirm("Are you sure you want to delete this product?")) {
+
+			window.location.href = '@Url.Action("DeleteProduct", "Admin", new { product_name = "__product_name__" })'.replace('__product_name__', productName);
+		}
+	}
+</script>

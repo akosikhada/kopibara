@@ -1,0 +1,180 @@
+@using System.Security.Claims
+<!DOCTYPE html>
+<html style="scroll-behavior: smooth;">
+<head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@ViewBag.Title KOPIBARA &copy;</title>
+<link rel="icon" href="~/Images/CUP.png" type="image/png">
+<link href="~/css/site.css" rel="stylesheet" type="text/css" />
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="~/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
+<link href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet" />
+<link href="~/lib/bootstrap/dist/css/bootstrap-utilities.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=shopping_cart" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script defer src="~/js/modernizr-2.8.3.js"></script>
+</head>
+<body style="background-color: #37251b;">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark">
+        <div class="container">
+            <img src="~/Images/KOPIBARA.png" class="navbar-brand" alt="Logo" width="200" height="200">
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="text-uppercase fs-2 fw-bold">@Html.ActionLink("Home", "Home", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="text-uppercase fs-2 fw-bold">@Html.ActionLink("Product", "Product", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+                <form class="d-flex">
+                    <a href="@Url.Action("Cart", "Order")" class="btn text-white me-2 mt-1"><span class="material-symbols-outlined" style="font-size: 40px;">shopping_cart</span></a>
+                </form>
+                <form class="d-flex">
+                    @if (Context.Request.Cookies["UserProfileImage"] != null)
+                    {
+                        <a href="#" class="btn text-white" data-bs-toggle="modal" data-bs-target="#profileModal">
+                            <img src="@Context.Request.Cookies["UserProfileImage"]" alt="Profile Image" style="width: 50px; height: 50px; border-radius: 50%;" />
+                        </a>
+                    }
+                    else if (ViewData["IsOrderListPage"] == null)
+                    {
+                        <a href="@Url.Action("Login", "Auth")" class="btn text-white fs-5 fw-bold text-uppercase" style="background-color: #a35429; margin-right: 15px;">LOGIN</a>
+                    }
+                </form>
+
+                <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="profileModalLabel">Your Profile</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <!-- Profile image from cookies -->
+                                @if (Context.Request.Cookies["UserProfileImage"] != null)
+                                {
+                                    <img src="@Context.Request.Cookies["UserProfileImage"]" alt="Profile Image" class="mb-3" style="width: 100px; height: 100px; border-radius: 50%;" />
+                                }
+
+                                <!-- Full name from cookies -->
+                                @if (Context.Request.Cookies["UserName"] != null)
+                                {
+                                    <h4>@Context.Request.Cookies["UserName"]</h4>
+                                }
+                                <!-- Email from cookies -->
+                                @if (Context.Request.Cookies["UserEmail"] != null)
+                                {
+                                    <p>@Context.Request.Cookies["UserEmail"]</p>
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <form action="@Url.Action("Logout", "Auth")" method="post">
+                                    <button type="submit" class="btn btn-danger">Logout</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <form class="d-flex mt-3 mt-sm-0">
+                    @if (Context.Session.GetString("IsAdminLoggedIn") == "true")
+                    {
+
+                        <a href="@Url.Action("Logout", "Admin")" class="btn text-white fs-5 fw-bold text-uppercase" style="background-color: #a35429;">LOGOUT</a>
+                    }
+                    else
+                    {
+
+                        <a href="@Url.Action("AdminLogin", "Auth")" class="btn text-white fs-5 fw-bold text-uppercase" style="background-color: #a35429;">ADMIN</a>
+                    }
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content mb-5">
+        @RenderBody()
+    </div>
+
+    <footer class="footer text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <div class="rounded-circle shadow-1-strong d-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 150px; height: 150px;">
+                        <img src="~/Images/KOPIBARA.png" height="250" alt="" />
+                    </div>
+                    <p class="text-center"><strong>KOPIBARA</strong><br />Cozy Coffee, Capybara Calm.</p>
+                    <ul class="list-unstyled d-flex flex-row justify-content-center">
+                        <li>
+                            <a class="text-dark px-2" href="#!">
+                                <i class="fab fa-facebook-square"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="text-dark px-2" href="#!">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="text-dark ps-2" href="#!">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h3 class="mb-1 text-dark text-uppercase">Quick Links</h3>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item text-uppercase fs-5 fw-bold">
+                            @Html.ActionLink("Home", "Home", "Home", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item text-uppercase fs-5 fw-bold">
+                            @Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item text-uppercase fs-5 fw-bold">
+                            @Html.ActionLink("Product", "Product", "Home", null, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h3 class="mb-1 text-dark text-uppercase">opening hours</h3>
+                    <table class="table text-center" style="border-color: #666;">
+                        <tbody>
+                            <tr>
+                                <td class="bg-transparent">Monday</td>
+                            </tr>
+                            <tr>
+                                <td class="bg-transparent">8:00AM - 2:00PM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h3 class="text-uppercase mb-1">Contact</h3>
+                    <ul class="list-unstyled">
+                        <li>
+                            <p><i class="fas fa-map-marker-alt pe-2"></i>Quezon City University</p>
+                        </li>
+                        <li>
+                            <p><i class="fas fa-phone pe-2"></i>+63 912 - 3456 - 7890</p>
+                        </li>
+                        <li>
+                            <p><i class="fas fa-envelope pe-2 mb-0"></i>kplkopibara@gmail.com</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p class="mt-3">&copy; @DateTime.Now.Year <strong class="text-uppercase">Kopibara.</strong> All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Kopibara.Models.Checkout> 
+
+@{
+    ViewBag.Title = null;
+}
+
+<h1 class="text-center" style="color: #FFEDDE;">CHECKOUT</h1>
+<div class="container cart-container h-100 pt-5 pb-5">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="card" style="background-color: #e0b07f;">
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3 class="mb-3 fw-semibold text-dark text-center text-md-start">Order Summary</h3>
+                            <hr class="text-dark">
+
+                            @foreach (var item in Model) 
+                            {
+                                <div class="card mb-3" style="background-color: #e0b07f; border: none; outline: none;">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                                            <div class="d-flex flex-column flex-md-row align-items-center">
+                                                <div>
+                                                    <img src="@item.product_image" class="img-fluid rounded-circle mb-3 mb-md-0" alt="Coffee" style="width: 100px;">
+                                                </div>
+                                                <div class="ms-md-3 text-center text-md-start">
+                                                    <h3 class="text-dark">@item.ItemName</h3>
+                                                    <p class="small text-dark fw-semibold mb-0">@item.Size, @item.BrewStyle, @item.SugarLevel</p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column flex-md-row align-items-center">
+                                                <div style="width: 50px;" class="text-center text-md-start">
+                                                    <strong style="position: absolute; margin-top: -52px; margin-left: -7px;">Qty</strong>
+                                                    <h5 class="fw-semibold mb-0 text-dark">@item.Quantity</h5>
+                                                </div>
+                                                <div style="width: 80px;" class="text-center text-md-end">
+                                                    <strong style="position: absolute; margin-top: -52px; margin-left: -50px;">Price</strong>
+                                                    <h5 class="mb-0 text-dark">₱@item.TotalPrice.ToString("F2")</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <hr class="text-dark" />
+                            <div class="row">
+                                <div class="col-12 col-md-9 fs-4 fw-semibold text-center text-md-start text-dark">Total:</div>
+                                <div class="col-12 col-md-3 text-end fs-4 fw-semibold text-center text-md-end text-dark">₱@ViewBag.TotalAmount.ToString("F2")</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between mt-4">
+                <a href="@Url.Action("ClearCheckout", "Payment")" class="btn text-white fw-semibold" style="background-color: #a35429;">Back</a>
+                <a href="@Url.Action("Method", "Payment")" class="btn text-white fw-semibold" style="background-color: #a35429;">Proceed to Payment</a>
+            </div>
+        </div>
+    </div>
+</div>

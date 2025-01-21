@@ -1,0 +1,156 @@
+﻿@model IEnumerable<Kopibara.Models.OrderList>
+
+@{
+    ViewBag.Title = null;
+}
+
+<style>
+    .table-container {
+        background-color: #f0d5c9;
+        padding: 30px;
+        border-radius: 10px;
+        max-width: 100%;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .table {
+        text-align: center;
+        font-size: 0.8rem;
+    }
+
+        .table tr td {
+            border: 1px solid #000;
+        }
+
+        .table th {
+            background-color: #a16538;
+            color: #fff;
+            font-size: 0.8rem;
+            border: 1px solid #000;
+        }
+
+    .btn-custom {
+        background-color: #a16538;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+        .btn-custom:hover {
+            background-color: #7a4c2d;
+        }
+
+    h4 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .order-summary-cell {
+        padding: 5px;
+        text-align: center;
+    }
+
+    .order-summary-row:nth-of-type(odd) {
+        background-color: #f0d5c9;
+    }
+
+    .order-summary-row:nth-of-type(even) {
+        background-color: #f0d5c9;
+    }
+
+    #space{
+        margin-top: 55px;
+        margin-bottom: 100px;
+    }
+</style>
+
+@{
+    var successMessage = TempData["SuccessMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @successMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container table-container" id="space">
+    <form method="post" action="@Url.Action("UpdateOrderStatus", "Admin")">
+    <div class="container">
+        <div class="d-flex flex-row gap-2 mb-3" style="width: max-content;">
+            <a href="@Url.Action("OrderList", "Admin")" class="btn text-white fs-5 fw-bold text-uppercase" style="background-color: #a35429;">ORDER LIST</a>
+            <a href="@Url.Action("ProductList", "Admin")" class="btn text-white fs-5 fw-bold text-uppercase" style="background-color: #a35429;">PRODUCT LIST</a>
+            <a href="@Url.Action("AddProduct", "Admin")" class="btn text-white fs-5 fw-bold text-uppercase" style="background-color: #a35429;">ADD PRODUCT</a>
+            <button type="submit" class="btn text-white fs-5 fw-bold text-uppercase" style="background-color: #a35429; margin-left: 600px;">Save</button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        
+        <table class="table table-striped text-center">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Reference number</th>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Order Date</th>
+                    <th>Order Time</th>
+                    <th colspan="5">Order Summary</th>
+                    <th>Order total</th>
+                    <th>Payment</th>
+                    <th>Status</th>
+                    <th>Notify</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.Id</td>
+                        <td><strong>@order.ReferenceNumber</strong></td>
+                        <td>@order.Email</td>
+                        <td>@order.Name</td>
+                        <td>@order.OrderDate.ToString("MM/dd/yy")</td>
+                        <td>@order.OrderTime.ToString(@"hh\:mm")</td>
+                        <td class="order-summary-cell">@order.Quantity</td>
+                        <td class="order-summary-cell">@order.ItemName</td>
+                        <td class="order-summary-cell">@order.Size</td>
+                        <td class="order-summary-cell">@order.BrewStyle</td>
+                        <td class="order-summary-cell">@order.SugarLevel</td>
+                        <td>@order.Total</td>
+                        <td>@order.PaymentMethod</td>
+                            <td>
+                                <select name="status[@order.ItemName]" class="form-select" style="width: 155px;">
+                                    @if (order.Status == "Paid - Unclaimed")
+
+                                    {
+                                        <option value="Paid - Unclaimed" selected>Paid - Unclaimed</option>
+                                        <option value="Paid - Claimed">Paid - Claimed</option>
+                                    }
+
+                                    else
+
+                                    {
+                                        <option value="Paid - Unclaimed">Paid - Unclaimed</option>
+                                        <option value="Paid - Claimed" selected>Paid - Claimed</option>
+                                    }
+                                </select>
+
+                            </td>
+                        <td>
+                            <a href="@Url.Action("SendEmail", "Admin", new { orderId = order.Id })" class="btn btn-custom">Send email</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    </form>
+</div>

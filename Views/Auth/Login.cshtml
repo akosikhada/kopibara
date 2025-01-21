@@ -1,0 +1,55 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html style="scroll-behavior: smooth;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title KOPIBARA &copy;</title>
+    <link rel="icon" href="~/Images/CUP.png" type="image/png">
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-utilities.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=shopping_cart" />
+    <script defer src="~/js/modernizr-2.8.3.js"></script>
+</head>
+<body style="background-color: #37251b;">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="row border rounded-5 p-3 shadow box-area" style="background-color: #d2c1b0;">
+            <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: #37251b;">
+                <div class="featured-image mb-3">
+                    <img src="~/Images/KOPIBARA.png" class="img-fluid" style="width: 300px;">
+                </div>
+                <p class="text-white fs-1 fw-bold">KOPIBARA</p>
+                <small class="text-white-50 text-wrap text-center fs-4 fw-semibold">Cozy Coffee, Capybara Calm.</small>
+            </div>
+            <div class="col-md-6 right-box">
+                <div class="row align-items-center">
+                    <div class="header-text mb-4">
+                        <h1 class="text-center mt-5">LOGIN</h1>
+                        <p class="text-center fs-5 fw-bold">Get Access to your Account</p>
+                    </div>
+                    <div class="input-group mb-5">
+                        <form action="@Url.Action("Authenticate", "Auth")" method="post" class="form-control">
+                        <button class="btn btn-lg btn-light w-100 fs-6"><img src="~/Images/GOOGLE.png" style="width:20px" class="me-2"><small class="fw-semibold">Sign In with Google</small></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+</body>
+</html>

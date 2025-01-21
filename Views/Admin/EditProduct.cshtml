@@ -1,0 +1,261 @@
+﻿@model Kopi_products
+
+@{
+    ViewBag.Title = null;
+}
+
+<style>
+    .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #e4bc84;
+        border: 2px solid #000;
+        padding: 20px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .nav-btn {
+        background-color: #7c4a28;
+        color: white;
+        border: none;
+        margin-right: 10px;
+        padding: 15px;
+    }
+
+    .nav-btn.active {
+        background-color: #a97a4f;
+    }
+
+    .nav-btn:hover {
+        background-color: #3d251b;
+    }
+
+    .image-placeholder,
+    .form-control,
+    .btn-custom {
+        background-color: #3d251b;
+        color: white;
+        border: none;
+        text-align: center;
+    }
+
+    .image-placeholder {
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .images img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 10px 29px 75px 0px rgba(0, 0, 0, 0.68);
+    }
+
+    .btn-custom,
+    .btn-cancel {
+        background-color: #be7c42;
+        padding: 15px 30px;
+        color: #ffffff;
+        transition: color 0.3s, background-color 0.3s;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        width: 100%;
+        max-width: 180px; 
+        margin: 10px 0; 
+    }
+
+    .btn-custom:hover,
+    .btn-cancel:hover {
+        background-color: #a86938;
+    }
+
+    .form-control {
+        padding: 15px;
+        font-size: 1.1em;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        color: #ffffff;
+        text-align: center;
+    }
+
+    .form-control::placeholder {
+        color: #ffffff;
+        text-align: center; 
+    }
+
+    .nav-btn:focus,
+    .btn-custom:focus,
+    .btn-cancel:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    #picture__input {
+        display: none;
+    }
+
+    .picture {
+        width: 100%;
+        aspect-ratio: 1.6 / 5;
+        background: #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #aaa;
+        cursor: pointer;
+        font-family: sans-serif;
+        transition: color 300ms ease-in-out, background 300ms ease-in-out;
+        outline: none;
+        overflow: hidden;
+        max-height: 450px;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .picture:hover {
+        color: #777;
+        background: #ccc;
+    }
+
+    .picture:active {
+        border-color: turquoise;
+        color: turquoise;
+        background: #eee;
+    }
+
+    .picture:focus {
+        color: #777;
+        background: #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .picture__img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .form-group,
+    .btn-custom,
+    .btn-cancel {
+        text-align: center;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .col-md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .p-4 {
+        padding: 0.9rem !important;
+    }
+
+    label{
+        margin-bottom: 8px;
+    }
+</style>
+
+<!-- Center Wrapper -->
+<div class="wrapper">
+    <div class="container">
+        <h2 class="text-center">Edit Product</h2>
+        <hr />
+        <form asp-action="EditProduct" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row">
+                <!-- Image Section -->
+                <div class="col-md-6">
+                    <label class="picture" for="picture__input" tabindex="0">
+                        <span class="picture__image">
+                            @if (!string.IsNullOrEmpty(Model.product_image))
+                            {
+                                <img src="@Model.product_image" alt="@Model.product_name" class="picture__img" />
+                            }
+                            else
+                            {
+                                <span>Choose an image</span>
+                            }
+                        </span>
+                    </label>
+                    <input type="file" name="product_image" id="picture__input" />
+                </div>
+
+                <!-- Form Section -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="product_name">Product Name</label>
+
+                        <input type="text" asp-for="product_name" class="form-control mb-3" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea asp-for="description" class="form-control mb-3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" asp-for="price" class="form-control mb-3" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select asp-for="category" class="form-control mb-3" required>
+                            <option value="Hot" selected="@(Model.category == "Hot")">Hot</option>
+                            <option value="Iced" selected="@(Model.category == "Iced")">Iced</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-custom p-4 mr-2 w-50">Save</button>
+                        <a href="@Url.Action("ProductList", "Admin")" class="btn btn-cancel p-4 w-50">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const inputFile = document.querySelector("#picture__input");
+    const pictureImage = document.querySelector(".picture__image");
+    const pictureImageTxt = "Choose an image";
+    pictureImage.innerHTML = pictureImageTxt;
+
+    inputFile.addEventListener("change", function (e) {
+        const inputTarget = e.target;
+        const file = inputTarget.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function (e) {
+                const readerTarget = e.target;
+
+                const img = document.createElement("img");
+                img.src = readerTarget.result;
+                img.classList.add("picture__img");
+
+                pictureImage.innerHTML = "";
+                pictureImage.appendChild(img);
+            });
+
+            reader.readAsDataURL(file);
+        } else {
+            pictureImage.innerHTML = pictureImageTxt;
+        }
+    });
+</script>

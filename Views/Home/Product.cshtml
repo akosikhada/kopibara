@@ -1,0 +1,70 @@
+@model IEnumerable<Kopi_products>
+
+@{
+    ViewBag.Title = null;
+}
+
+<div class="container-fluid pt-5 pb-5" id="menu">
+    <div class="container">
+        <div class="section-title">
+            <h4 class="text-uppercase text-white fw-semibold" style="letter-spacing: 5px;">
+                Our Menu
+            </h4>
+            <h1 class="display-4 text-white fw-semibold">
+                Best-sellers
+            </h1>
+        </div>
+        <div class="row">
+            <!-- Hot Drinks Section -->
+            <div class="col-lg-6">
+                <h1 class="mb-5 fw-semibold text-white">
+                    Hot
+                </h1>
+                @foreach (var product in Model.Where(p => p.category == "Hot"))
+                {
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3 text-center">
+                            <img src="@(product.product_image)" alt="@product.product_name" class="w-100 rounded-circle mb-3 mb-sm-0" />
+                            <h5 class="text-center text-white-50 mt-3">₱@product.price</h5>
+                            <a href="@Url.Action("Modify", "Order", new { product_name = product.product_name })" class="btn text-white btn-block fw-bold" style="background-color: #a35429;">Order</a>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4 class="text-white">
+                                @product.product_name
+                            </h4>
+                            <p class="m-0 text-white-50">
+                                @product.description
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Iced Drinks Section -->
+            <div class="col-lg-6">
+                <h1 class="mb-5 fw-semibold text-white">
+                    Iced
+                </h1>
+                @foreach (var product in Model.Where(p => p.category == "Iced"))
+                {
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3 text-center">
+                            <img src="@(product.product_image)" alt="@product.product_name" class="w-100 rounded-circle mb-3 mb-sm-0" />
+                            <h5 class="text-center text-white-50 mt-3">₱@product.price</h5>
+                            <a href="@Url.Action("Modify", "Order", new { product_name = product.product_name })" class="btn text-white btn-block fw-bold" style="background-color: #a35429;">Order</a>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4 class="text-white">
+                                @product.product_name
+                            </h4>
+                            <p class="m-0 text-white-50">
+                                @product.description
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,665 @@
+﻿@model List<Kopibara.Models.CoffeeOrder>
+
+
+
+
+@{
+
+    ViewBag.Title = null;
+
+}
+
+
+
+<h1 class="text-center" style="color: #FFEDDE;">CART</h1>
+
+<div class="container cart-container h-100 pt-5 pb-5">
+
+    <div class="row d-flex justify-content-center align-items-center h-100">
+
+        <div class="col-12 col-md-10 col-lg-8">
+
+            @if (Model == null || !Model.Any())
+
+            {
+
+                <div class="table-responsive cart-table">
+
+                    <table class="table table-responsive table-borderless">
+
+                        <thead>
+
+                            <tr class="text-center text-md-start">
+
+                                <th scope="col" class="h5 text-nowrap" style="background-color: #d9a668;">Order</th>
+
+                                <th scope="col" class="h5 text-nowrap" style="background-color: #d9a668;">Quantity</th>
+
+                                <th scope="col" class="h5 text-nowrap" style="background-color: #d9a668;">Price</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td colspan="3" class="text-center fs-4" style="color: #4e3629; padding: 100px; background-color: #d9a668; padding-top: 100px;">
+
+                                    There's no orders yet
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            }
+
+            else
+
+            {
+
+                <div class="table-responsive cart-table">
+
+                    <table class="table table-responsive table-borderless">
+
+                        <thead>
+
+                            <tr class="text-center text-md-start">
+
+                                <th scope="col" class="h5 text-nowrap" style="background-color: #d9a668;">Order</th>
+
+                                <th scope="col" class="h5 text-nowrap" style="background-color: #d9a668;">Quantity</th>
+
+                                <th scope="col" class="h5 text-nowrap" style="background-color: #d9a668;">Price</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var item in Model)
+
+                            {
+
+                                var pricePerItem = item.Price; // Price per item
+
+                                <tr>
+
+                                    <th scope="row" class="pt-3 pb-3" style="background-color: #d9a668;">
+
+                                        <div class="d-flex flex-column flex-md-row align-items-center">
+
+                                            <img src="@item.product_image" class="img-fluid rounded-circle mb-3 mb-md-0" style="width: 100px;" alt="Coffee">
+
+                                            <div class="flex-column ms-md-4 text-center text-md-start">
+
+                                                <p id="itemName-@item.Id" class="mb-2">@item.ItemName</p>
+
+                                            </div>
+
+                                        </div>
+
+                                    </th>
+
+                                    <td class="align-middle" style="background-color: #d9a668;">
+
+                                        <div class="def-number-input number-input safari_only d-flex justify-content-center align-items-center">
+
+                                            <button onclick="updateQuantity(@item.Id, -1, @item.Price);" class="minus"></button>
+
+                                            <input id="quantity-@item.Id"
+
+                                                   class="quantity fw-bold bg-body-tertiary text-body mx-2 text-center"
+
+                                                   min="1"
+
+                                                   name="quantity"
+
+                                                   value="@item.Quantity"
+
+                                                   type="number"
+
+                                                   onblur="updateTotalCost();">
+
+                                            <button onclick="updateQuantity(@item.Id, 1, @item.Price);" class="plus"></button>
+
+                                        </div>
+
+                                    </td>
+
+                                    <td class="align-middle" style="background-color: #d9a668;">
+
+                                        <p id="price-@item.Id" class="mb-0" style="font-weight: 500;" data-price="@item.Price">₱@(string.Format("{0:F2}", item.Price * item.Quantity))</p>
+
+                                    </td>
+
+                                    <td class="align-middle" style="background-color: #d9a668;">
+
+                                        <button onclick="removeItem('@item.ItemName')" class="btn btn-danger">Remove</button>
+
+                                    </td>
+
+                                </tr>
+
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                    <hr class="text-dark" />
+
+                    <div class="row">
+
+                        <div class="col-12 col-md-9 fs-4 fw-semibold text-center text-md-start text-dark">Total:</div>
+
+                        <div class="col-12 col-md-3 text-end fs-4 fw-semibold text-center text-md-end text-dark">
+
+                            <p id="total-price" class="mb-0">₱@Model.Sum(x => x.Price * x.Quantity).ToString("F2")</p>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            }
+
+
+
+                 <div class="d-flex mt-3 justify-content-between">
+
+                    <a id="backBtn" href="javascript:void(0);" class="btn text-white fw-semibold" style="background-color: #a35429;">Back</a>
+
+                 @* <button id="checkoutBtn" class="btn text-white fw-semibold" style="background-color: #a35429;">Proceed to Checkout</button> *@
+
+                <a href="javascript:void(0);" id="checkoutBtn" class="btn text-white fw-semibold" style="background-color: #a35429;">Proceed to Checkout</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+      
+
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="loginModalLabel" style="color: black;">Login Required</h5>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                <p style="color: black;">You need to log in first before proceeding to checkout.</p>
+
+                </div>
+
+                <div class="modal-footer">
+
+                <a href="@Url.Action("Login", "Auth")" class="btn btn-primary">Login</a>
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+</div>
+
+
+
+
+
+<div class="modal fade" id="emptyCartModal" tabindex="-1" aria-labelledby="emptyCartModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="emptyCartModalLabel" style="color: black;">Cart is Empty</h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <div class="modal-body" style="text-align: center; margin-top: 15px;">
+
+                <p style="color: black;">Please add items to your cart before proceeding to checkout.</p>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const isAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower();
+
+        const cartIsEmpty = @((Model == null || !Model.Any()).ToString().ToLower());
+
+        const checkoutButton = document.getElementById("checkoutBtn");
+
+
+
+        checkoutButton.addEventListener("click", function (e) {
+
+            e.preventDefault();
+
+            if (!isAuthenticated) {
+
+
+
+                const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+
+                loginModal.show();
+
+            } else if (cartIsEmpty) {
+
+
+
+                const emptyCartModal = new bootstrap.Modal(document.getElementById('emptyCartModal'));
+
+                emptyCartModal.show();
+
+            } else {
+
+
+
+                const cartItems = [];
+
+
+
+                document.querySelectorAll("[id^='quantity-']").forEach(input => {
+
+                    const itemId = input.id.split('-')[1];
+
+                    const itemName = document.querySelector(`#itemName-${itemId}`).textContent.trim();
+
+                    const quantity = parseInt(input.value);
+
+                    const price = parseFloat(document.getElementById(`price-${itemId}`).dataset.price);
+
+
+
+                    cartItems.push({
+
+                        ItemName: itemName, 
+
+                        Quantity: quantity,
+
+                        TotalPrice: price * quantity,
+
+                        TotalCost: `₱${(price * quantity).toFixed(2)}`
+
+                    });
+
+                });
+
+
+
+                fetch('/Order/UpdateCart', {
+
+                    method: 'POST',
+
+                    headers: {
+
+                        'Content-Type': 'application/json',
+
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+
+                    },
+
+                    body: JSON.stringify(cartItems)
+
+                })
+
+                    .then(response => {
+
+                        if (response.ok) {
+
+
+
+                            window.location.href = "@Url.Action("Checkout", "Payment")";
+
+                        } else {
+
+
+
+                            window.location.href = "@Url.Action("Home", "Home")";
+
+                        }
+
+                    });
+
+            }
+
+        });
+
+    });
+
+
+
+
+
+    function resetIfEmpty(input) {
+
+        if (input.value === '' || input.value <= 0) {
+
+            input.value = 1;
+
+        }
+
+    }
+
+
+
+    function updateQuantity(itemId, change, pricePerItem) {
+
+        const quantityInput = document.getElementById(`quantity-${itemId}`);
+
+        let newQuantity = parseInt(quantityInput.value) + change;
+
+
+
+        if (newQuantity < 1) {
+
+            newQuantity = 1;
+
+        } else if (newQuantity > 25) {
+
+            newQuantity = 25;
+
+        }
+
+
+
+        quantityInput.value = newQuantity;
+
+        updateTotalCost();
+
+    }
+
+
+
+    function updateTotalCost() {
+
+        const priceElements = document.querySelectorAll("[id^='price-']");
+
+        let totalCost = 0;
+
+
+
+        priceElements.forEach(priceElement => {
+
+            const price = parseFloat(priceElement.dataset.price);
+
+            const quantity = parseInt(document.getElementById(`quantity-${priceElement.id.split('-')[1]}`).value);
+
+            totalCost += price * quantity;
+
+            priceElement.textContent = `₱${(price * quantity).toFixed(2)}`;
+
+        });
+
+
+
+        document.getElementById('total-price').textContent = `₱${totalCost.toFixed(2)}`;
+
+    }
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+
+
+        document.querySelectorAll("[id^='quantity-']").forEach(input => {
+
+            input.addEventListener("blur", function () {
+
+                let value = parseInt(this.value);
+
+
+
+                if (isNaN(value) || value < 1) {
+
+                    this.value = 1;
+
+                } else if (value > 25) { 
+
+                    this.value = 25;
+
+                }
+
+
+
+                updateTotalCost();
+
+            });
+
+
+
+            input.addEventListener("input", function () {
+
+                if (parseInt(this.value) > 25) {
+
+                    this.value = 25;
+
+                }
+
+            });
+
+        });
+
+
+
+        updateTotalCost(); // Initial calculation
+
+    });
+
+
+
+    document.getElementById("backBtn").addEventListener("click", function () {
+
+        const cartItems = [];
+
+
+
+        // Gather updated cart data
+
+        document.querySelectorAll("[id^='quantity-']").forEach(input => {
+
+            const itemId = input.id.split('-')[1];
+
+            const itemName = document.querySelector(`#itemName-${itemId}`).textContent.trim();
+
+            const quantity = parseInt(input.value);
+
+            const price = parseFloat(document.getElementById(`price-${itemId}`).dataset.price);
+
+
+
+            cartItems.push({
+
+                ItemName: itemName,  
+
+                Quantity: quantity,
+
+                TotalPrice: price * quantity,
+
+                TotalCost: `₱${(price * quantity).toFixed(2)}`
+
+            });
+
+        });
+
+
+
+        fetch('/Order/UpdateCart', {
+
+            method: 'POST',
+
+            headers: {
+
+                'Content-Type': 'application/json',
+
+                'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+
+            },
+
+            body: JSON.stringify(cartItems)
+
+        }).then(response => {
+
+            if (response.ok) {
+
+
+
+                window.location.href = "@Url.Action("Home", "Home")";
+
+            } else {
+
+                window.location.href = "@Url.Action("Home", "Home")";
+
+            }
+
+        });
+
+    });
+
+
+
+    function removeItem(itemName) {
+
+        if (confirm("Are you sure you want to remove this item from your cart?")) {
+
+            fetch('/Order/RemoveItem', {
+
+                method: 'POST',
+
+                headers: {
+
+                    'Content-Type': 'application/json',
+
+                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+
+                },
+
+                body: JSON.stringify({ itemName: itemName })
+
+            })
+
+                .then(response => {
+
+                    if (response.ok) {
+
+
+
+                        location.reload();
+
+                    } else {
+
+
+
+                        return response.json().then(data => {
+
+                            console.error(data.message || "Failed to remove the item.");
+
+                        });
+
+                    }
+
+                })
+
+                .catch(error => {
+
+
+
+                    console.error("An error occurred:", error);
+
+                });
+
+        }
+
+    }
+
+
+
+    document.getElementById("checkoutBtn").addEventListener("click", function () {
+
+
+
+        fetch('/Payment/ProceedToCheckout', {
+
+            method: 'POST',
+
+            headers: {
+
+                'Content-Type': 'application/json',
+
+                'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+
+            }
+
+        })
+
+            .then(response => {
+
+                if (response.ok) {
+
+                    /* window.location.href = '@Url.Action("Checkout", "Payment")'; */ // Redirect to checkout page
+
+                }
+
+            })
+
+            .catch(error => {
+
+                console.error("An error occurred:", error);
+
+            });
+
+    });
+
+</script>
+

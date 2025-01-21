@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = null;
+}
+
+<style>
+    .payment-methods-container {
+        max-width: 500px;
+        background-color: #4a2a19;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .method-option {
+        background-color: #e3b280;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .btn-back,
+    .btn-proceed {
+        background-color: #8f4d1d;
+        color: white;
+        border: none;
+    }
+
+        .btn-proceed:hover,
+        .btn-back:hover {
+            background-color: #8f4d1d;
+        }
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    .custom-radio {
+        position: relative;
+        padding-left: 30px;
+    }
+
+        .custom-radio:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #8f4d1d;
+            border-radius: 50%;
+            background-color: transparent;
+        }
+
+    input[type="radio"]:checked + label:before {
+        background-color: #8f4d1d;
+        /
+    }
+
+    input[type="radio"]:checked + label:after {
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: white;
+    }
+</style>
+
+<h1 class="text-center" style="color: #FFEDDE;">PAYMENT METHOD</h1>
+<div class="container payment-methods-container text-center">
+    <div class="method-option"
+         onclick="document.getElementById('maya').checked = true; document.getElementById('paymentMethod').value = 'paymaya';">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="custom-radio">
+                <input type="radio" name="payment" id="maya" checked />
+                <label for="maya" class="ms-2 text-black fs-5 fw-semibold">Maya</label>
+            </div>
+            <img src="~/Images/MAYA.png" style="margin: 1rem" alt="Maya" width="80" />
+        </div>
+    </div>
+
+    <div class="method-option"
+         onclick="document.getElementById('gcash').checked = true; document.getElementById('paymentMethod').value = 'gcash';">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="custom-radio">
+                <input type="radio" name="payment" id="gcash" />
+                <label for="gcash" class="ms-2 text-black fs-5 fw-semibold">GCash</label>
+            </div>
+            <img src="~/Images/GCASH.png" alt="GCash Logo" width="120" />
+        </div>
+    </div>
+
+    @* <div class="method-option"
+         onclick="document.getElementById('counter').checked = true;">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="custom-radio">
+                <input type="radio" name="payment" id="counter" />
+                <label for="counter" class="ms-2 fs-5 fw-semibold text-black">Pay at the Counter</label>
+            </div>
+            <img src="~/Images/COUNTER.png" alt="Pay Counter Icon" width="120" />
+        </div>
+    </div> *@
+
+    <div class="d-flex justify-content-between mt-4">
+        <a href="@Url.Action("Checkout", "Payment")" class="btn text-white fw-semibold" style="background-color: #a35429;">Back</a>
+
+        <form action="@Url.Action("ProceedToPayment", "Payment")" method="post">
+            <input type="hidden" id="paymentMethod" name="paymentMethod" value="paymaya" />
+            <button type="submit" class="btn text-white fw-semibold" style="background-color: #a35429;">
+                Proceed to Payment
+            </button>
+        </form>
+    </div>
+</div>
