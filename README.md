@@ -20,37 +20,55 @@
 <table>
   <tr>
     <td width="50%">
-      <h3>🔐 Secure Authentication</h3>
+      <h3>🔐 Enterprise-Grade Security</h3>
       <ul>
-        <li>Google OAuth integration for customer login</li>
-        <li>Custom admin authentication system</li>
-        <li>Secure cookie-based session management</li>
+        <li>Seamless Google OAuth 2.0 integration for frictionless customer login</li>
+        <li>Role-based admin authentication with granular permission controls</li>
+        <li>Advanced cookie-based session management with encryption</li>
       </ul>
     </td>
     <td width="50%">
-      <h3>💸 Seamless Payments</h3>
+      <h3>💸 Effortless Transactions</h3>
       <ul>
-        <li>Integration with PayMongo payment gateway</li>
-        <li>Support for multiple payment methods</li>
-        <li>Secure transaction processing</li>
+        <li>Fully integrated PayMongo payment gateway with real-time processing</li>
+        <li>Support for credit/debit cards, e-wallets, and online banking</li>
+        <li>PCI-compliant secure transaction handling with detailed receipts</li>
       </ul>
     </td>
   </tr>
   <tr>
     <td width="50%">
-      <h3>☕ Comprehensive Menu</h3>
+      <h3>☕ Premium Coffee Experience</h3>
       <ul>
-        <li>Extensive selection of premium coffee</li>
-        <li>Hot and iced variations available</li>
-        <li>Detailed product descriptions and images</li>
+        <li>Curated selection of specialty-grade coffee from global origins</li>
+        <li>Customizable temperature options with hot and iced preparations</li>
+        <li>Rich product catalog with high-resolution imagery and tasting notes</li>
       </ul>
     </td>
     <td width="50%">
-      <h3>📱 Responsive Design</h3>
+      <h3>📱 Adaptive User Experience</h3>
       <ul>
-        <li>Modern, user-friendly interface</li>
-        <li>Optimized for all device sizes</li>
-        <li>Intuitive ordering workflow</li>
+        <li>Sleek, intuitive interface with modern design principles</li>
+        <li>Fully responsive layout optimized for desktop, tablet, and mobile</li>
+        <li>Streamlined ordering flow with minimal steps to checkout</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <h3>🔔 Real-Time Notifications</h3>
+      <ul>
+        <li>Instant order confirmations via email and in-app alerts</li>
+        <li>Order status tracking from preparation to delivery</li>
+        <li>Personalized promotions based on customer preferences</li>
+      </ul>
+    </td>
+    <td width="50%">
+      <h3>📊 Comprehensive Analytics</h3>
+      <ul>
+        <li>Detailed sales reporting and performance metrics</li>
+        <li>Customer behavior insights and preference tracking</li>
+        <li>Inventory management with automatic reordering suggestions</li>
       </ul>
     </td>
   </tr>
