@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="./wwwroot/images/KOPIBARA.png" alt="KOPIBARA Logo" width="300" height="300" />
   <h1>☕ KOPIBARA</h1>
+  <img src="./wwwroot/images/KOPIBARA.png" alt="KOPIBARA Logo" width="200" height="200" />
   <p><strong><i>Your Modern Coffee Ordering Experience</i></strong></p>
   
   <p>
