@@ -93,7 +93,6 @@
 	}
 
 	.picture {
-		margin-top: 58px;
 		width: 100%;
 		aspect-ratio: 1.6 / 5;
 		background: #ddd;
@@ -143,41 +142,31 @@
 				<a href="@Url.Action("AddProduct", "Admin")" class="btn text-white fs-5 fw-bold text-uppercase" style="background-color: #a35429;">ADD PRODUCT</a>
 			</div>
 		</div>
+		<!-- Main Content -->
+		<div class="row">
+			<!-- Image Section -->
+			<div class="col-md-6">
+				<label class="picture" for="picture__input" tabindex="0">
+					<span class="picture__image">Choose an Image</span>
+				</label>
+				<input type="file" name="picture__input" id="picture__input" />
+			</div>
 
-		<form asp-action="AddProduct" method="post" enctype="multipart/form-data">
-			<div class="row">
-				<!-- Image Section -->
-				<div class="col-md-6">
-					<label class="picture" for="picture__input" tabindex="0">
-						<span class="picture__image">Choose an Image</span>
-					</label>
-					<input type="file" name="product_image" id="picture__input" />
+			<!-- Form Section -->
+			<div class="col-md-6">
+				<div class="form-group">
+					<input type="text" class="form-control mb-3" placeholder="Name" />
+					<textarea class="form-control mb-3" placeholder="Description"></textarea>
+					<input type="number" class="form-control mb-3" placeholder="Price" />
 				</div>
 
-				<!-- Form Section -->
-				<div class="col-md-6">
-					<div class="form-group">
-						<input type="text" name="product_name" class="form-control mb-3" placeholder="Name" required />
-						<textarea name="description" class="form-control mb-3" placeholder="Description" required></textarea>
-						<input type="number" name="price" class="form-control mb-3" placeholder="Price" required />
-
-						<!-- Dropdown for Category -->
-						<select name="category" class="form-control mb-3" required>
-							<option value="" disabled selected>Choose Category</option>
-							<option value="Hot">Hot</option>
-							<option value="Iced">Iced</option>
-						</select>
-					</div>
-
-					<!-- Centered Buttons -->
-					<div class="d-flex justify-content-center gap-2">
-						<button type="submit" class="btn btn-custom p-4 mr-2 w-50">Add</button>
-						<a href="@Url.Action("OrderList", "Admin")" class="btn btn-cancel p-4 w-50">Cancel</a>
-					</div>
+				<!-- Centered Buttons -->
+				<div class="d-flex justify-content-center gap-2">
+					<button class="btn btn-custom p-4 mr-2 w-50">Save</button>
+					<button class="btn btn-cancel p-4 w-50">Cancel</button>
 				</div>
 			</div>
-		</form>
-
+		</div>
 	</div>
 </div>
 
